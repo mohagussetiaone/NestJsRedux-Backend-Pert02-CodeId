@@ -28,6 +28,18 @@ export class ServiceService {
     }
   }
 
+  public async Upload(file, name: string) {
+    try {
+      const region = await this.serviceRepo.save({
+        regionName: name,
+        regionPhoto: file.originalname,
+      });
+      return region;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
   public async Update(id: number, name: string) {
     try {
       const region = await this.serviceRepo.update(id, {

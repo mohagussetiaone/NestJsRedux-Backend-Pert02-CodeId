@@ -6,7 +6,10 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ServiceService } from 'src/service/service.service';
 
 @Controller('/region')
@@ -20,6 +23,11 @@ export class ControllerController {
   @Get(':id')
   public async getOne(@Param('id') id: number) {
     return await this.Services.findOne(id);
+  }
+  @Post('/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  public async upload(@UploadedFile() file, @Body('name') name: string) {
+    return await this.Services.Upload(file, name);
   }
   @Post()
   public async Create(@Body('name') name: string) {
