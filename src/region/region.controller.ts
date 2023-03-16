@@ -10,11 +10,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ServiceService } from 'src/service/service.service';
+import { RegionService } from './region.service';
 
-@Controller('/region')
-export class ControllerController {
-  constructor(private Services: ServiceService) {}
+@Controller('region')
+export class RegionController {
+  constructor(private Services: RegionService) {}
 
   @Get()
   public async getAll() {

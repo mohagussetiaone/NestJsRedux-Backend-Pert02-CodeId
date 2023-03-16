@@ -4,7 +4,7 @@ import { Regions } from 'output/entities/Regions';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class ServiceService {
+export class RegionService {
   constructor(
     @InjectRepository(Regions) private serviceRepo: Repository<Regions>,
   ) {}

@@ -12,11 +12,11 @@ import { Locations } from 'output/entities/Locations';
 import { Regions } from 'output/entities/Regions';
 import { Regions1 } from 'output/entities/Regions1';
 import { User } from 'output/entities/User';
-import { JwtStrategy } from 'src/auth/jwt.strategy';
-import { LocalStrategy } from 'src/auth/local.strategy';
-import { ControllerController } from 'src/controller/controller.controller';
-import { ConfigMulter } from 'src/multer/multer.middleware';
-import { ServiceService } from 'src/service/service.service';
+import { JwtGuard } from 'src/auth/jwt/jwt.guard';
+import { LocalGuard } from 'src/auth/local/local.guard';
+import { RegionController } from 'src/region/region.controller';
+import { RegionService } from 'src/region/region.service';
+import { UploadMiddleware } from 'src/upload/upload.middleware';
 import { UserController } from 'src/user/user.controller';
 import { UserService } from 'src/user/user.service';
 
@@ -38,10 +38,10 @@ import { UserService } from 'src/user/user.service';
       secret: 'secretKey',
       signOptions: { expiresIn: '2d' },
     }),
-    MulterModule.register(ConfigMulter.Uploadfiles()),
+    MulterModule.register(UploadMiddleware.MulterOption()),
   ],
-  providers: [ServiceService, UserService, LocalStrategy, JwtStrategy],
-  controllers: [ControllerController, UserController],
+  providers: [RegionService, UserService, LocalGuard, JwtGuard],
+  controllers: [RegionController, UserController],
   exports: [UserService],
 })
 export class ModuleModule {}

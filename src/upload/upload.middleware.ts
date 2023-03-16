@@ -1,7 +1,10 @@
+import { Injectable } from '@nestjs/common';
+import { MulterOptionsFactory } from '@nestjs/platform-express';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 
-export class ConfigMulter {
-  static Uploadfiles(): MulterOptions {
+@Injectable()
+export class UploadMiddleware {
+  static MulterOption(): MulterOptions {
     return {
       dest: './uploads',
       fileFilter(req, file, callback) {
