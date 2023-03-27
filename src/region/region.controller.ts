@@ -37,6 +37,15 @@ export class RegionController {
   public async Update(@Param('id') id: number, @Body('name') name: string) {
     return await this.Services.Update(id, name);
   }
+  @Put('/upload/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  public async uploadUpdate(
+    @Param('id') id: number,
+    @UploadedFile() file,
+    @Body('name') name: string,
+  ) {
+    return await this.Services.UploadUpdate(id, file, name);
+  }
   @Delete(':id')
   public async Delete(@Param('id') id: number) {
     return await this.Services.Delete(id);

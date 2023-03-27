@@ -10,7 +10,11 @@ export class RegionService {
   ) {}
 
   public async findAll() {
-    return await this.serviceRepo.find();
+    return await this.serviceRepo.find({
+      relations: {
+        countries: true,
+      },
+    });
   }
 
   public async findOne(id: number) {
@@ -31,6 +35,18 @@ export class RegionService {
   public async Upload(file, name: string) {
     try {
       const region = await this.serviceRepo.save({
+        regionName: name,
+        regionPhoto: file.originalname,
+      });
+      return region;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  public async UploadUpdate(id: number, file, name: string) {
+    try {
+      const region = await this.serviceRepo.update(id, {
         regionName: name,
         regionPhoto: file.originalname,
       });
